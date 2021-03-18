@@ -1,40 +1,36 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import StatusCodes from 'http-status-codes';
-import { JwtService } from '@shared/JwtService';
 import {
-  paramMissingError,
-  cookieProps,
-  IRequest,
   notFound,
+  sectionAddingError,
+  sectionUpdatingError,
 } from '@shared/constants';
-import Admin from '../models/admin';
 import Section from '../models/section';
 import { adminMW } from './middleware';
-import { ErrorWithStatus } from '@shared/functions';
+import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
 
-const LoginRouter = Router();
 const SectionRouter = Router();
-const jwtService = new JwtService();
 const {
-  BAD_REQUEST,
   OK,
-  UNAUTHORIZED,
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
+  CREATED,
+  NOT_IMPLEMENTED,
 } = StatusCodes;
 
-/******************************************************************************
- *                      Section - "GET /section"
- ******************************************************************************/
-
 SectionRouter.route('/section')
+  /******************************************************************************
+   *                      Section - "GET /section"
+   ******************************************************************************/
   .get((req: Request, res: Response, next: NextFunction) => {
     Section.find({})
       .then((allSections) => {
+        //Sections not found
         if (!allSections) {
           const err = new ErrorWithStatus(NOT_FOUND, notFound);
           return next(err);
         }
+        // Send sections to a client
         return res.status(OK).json({ allSections });
       })
       .catch((error) => {
@@ -42,9 +38,36 @@ SectionRouter.route('/section')
         return next(err);
       });
   })
-  .post(adminMW, async (req: Request, res: Response) => {
-    await Section.create(req.body);
-    return res.status(OK).end();
+  /******************************************************************************
+   *                      Section - "POST /section"
+   ******************************************************************************/
+  .post(adminMW, (req: Request, res: Response, next: NextFunction) => {
+    //Create new section
+    Section.create(req.body)
+      .then(() => {
+        //Send status OK if created
+        return res.status(CREATED).end();
+      })
+      .catch(() => {
+        const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionAddingError);
+        return next(err);
+      });
+  })
+  /******************************************************************************
+   *                      Section - "PUT /section"
+   ******************************************************************************/
+  .put(adminMW, (req: Request, res: Response, next: NextFunction) => {
+    //Find and update section
+    Section.findByIdAndUpdate(req.body.sectionId, {
+      $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
+    })
+      .then(() => {
+        return res.status(OK).end();
+      })
+      .catch(() => {
+        const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
+        return next(err);
+      });
   });
 
 export default SectionRouter;

@@ -8,6 +8,8 @@ export const loginFailedError = 'Login failed';
 export const namePassMissingError = 'Name or password was missing.';
 export const dbError = 'Data base Error';
 export const notFound = 'Not found';
+export const sectionAddingError = 'Section was not added';
+export const sectionUpdatingError = 'Section was not updated';
 
 // Numbers
 export const pwdSaltRounds = 12;

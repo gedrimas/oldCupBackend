@@ -3,10 +3,8 @@ import StatusCodes from 'http-status-codes';
 import { JwtService } from '@shared/JwtService';
 import { ErrorWithStatus } from '@shared/functions';
 import {
-  paramMissingError,
   loginFailedError,
   namePassMissingError,
-  dbError,
   cookieProps,
   IRequest,
 } from '@shared/constants';

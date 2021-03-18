@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
-interface SSchema extends Document {
+export interface SSchema extends Document {
   ru: string;
   ee: string;
 }

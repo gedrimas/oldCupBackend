@@ -10,7 +10,9 @@ import 'express-async-errors';
 
 import BaseRouter from './routes';
 import LoginRouter from './routes/LoginRouter';
+import UploadRouter from './routes/UploadRouter';
 import SectionRouter from './routes/SectionRouter';
+import AdvertRouter from './routes/AdvertRouter';
 import { ErrorWithStatus } from '@shared/functions';
 
 import logger from '@shared/Logger';
@@ -42,7 +44,8 @@ app.use('/api', BaseRouter);
 
 app.use('/', LoginRouter);
 app.use('/', SectionRouter);
-
+app.use('/', UploadRouter);
+app.use('/', AdvertRouter);
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(
