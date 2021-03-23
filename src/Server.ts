@@ -5,16 +5,10 @@ import path from 'path';
 import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import express, { NextFunction, Request, Response } from 'express';
-
 import 'express-async-errors';
 
 import BaseRouter from './routes';
-import LoginRouter from './routes/LoginRouter';
-import UploadRouter from './routes/UploadRouter';
-import SectionRouter from './routes/SectionRouter';
-import AdvertRouter from './routes/AdvertRouter';
 import { ErrorWithStatus } from '@shared/functions';
-
 import logger from '@shared/Logger';
 import { cookieProps } from '@shared/constants';
 
@@ -40,12 +34,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Add APIs
-app.use('/api', BaseRouter);
+//app.use('/api', BaseRouter);
 
-app.use('/', LoginRouter);
-app.use('/', SectionRouter);
-app.use('/', UploadRouter);
-app.use('/', AdvertRouter);
+app.use('/', BaseRouter);
+
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(

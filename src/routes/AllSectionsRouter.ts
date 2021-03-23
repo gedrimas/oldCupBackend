@@ -5,10 +5,12 @@ import {
   sectionAddingError,
   sectionUpdatingError,
 } from '@shared/constants';
-import Advert from '../models/advert';
+import Section from '../models/section';
+import { adminMW } from './middleware';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
 
-const AdvertRouter = Router();
+const AllSectionsRouter = Router();
+
 const {
   OK,
   NOT_FOUND,
@@ -17,32 +19,25 @@ const {
   NOT_IMPLEMENTED,
 } = StatusCodes;
 
-AdvertRouter.route('/')
+AllSectionsRouter
   /******************************************************************************
-   *                      Section - "GET /section"
+   *                      Sections - "GET /sections"
    ******************************************************************************/
-  .get((req: Request, res: Response, next: NextFunction) => {
-    Advert.find({ sectionId: req.body.sectionId })
-      .then((allAdverts) => {
+  .get('/', (req: Request, res: Response, next: NextFunction) => {
+    Section.find({})
+      .then((allSections) => {
         //Sections not found
-        if (!allAdverts) {
+        if (!allSections) {
           const err = new ErrorWithStatus(NOT_FOUND, notFound);
           return next(err);
         }
         // Send sections to a client
-        return res.status(OK).json({ allAdverts });
+        return res.status(OK).json({ allSections });
       })
       .catch((error) => {
         const err = new ErrorWithStatus(INTERNAL_SERVER_ERROR, error.message);
         return next(err);
       });
   });
-/******************************************************************************
- *                      Section - "POST /section"
- ******************************************************************************/
 
-/******************************************************************************
- *                      Section - "PUT /section"
- ******************************************************************************/
-
-export default AdvertRouter;
+export default AllSectionsRouter;

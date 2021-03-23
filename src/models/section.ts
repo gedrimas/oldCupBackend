@@ -1,6 +1,6 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
-export interface SSchema extends Document {
+export interface SectionSchema extends Document {
   ru: string;
   ee: string;
 }
@@ -16,6 +16,6 @@ const SectionSchema: Schema = new Schema({
   },
 });
 
-const Section: Model<SSchema> = model('Section', SectionSchema);
+const Section: Model<SectionSchema> = model('Section', SectionSchema);
 
 export default Section;

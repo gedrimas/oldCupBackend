@@ -35,7 +35,7 @@ const upload = multer({
 
 const UploadRouter = express.Router();
 
-UploadRouter.route('/upload').post(
+UploadRouter.route('/').post(
   adminMW,
   upload.array('avatar', 5),
   (req: Request, res: Response, next: NextFunction) => {

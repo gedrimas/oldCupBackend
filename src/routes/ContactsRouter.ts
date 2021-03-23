@@ -5,12 +5,11 @@ import {
   sectionAddingError,
   sectionUpdatingError,
 } from '@shared/constants';
-import Section from '../models/section';
+import Contacts from '../models/contacts';
 import { adminMW } from './middleware';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
 
-const SectionRouter = Router();
-
+const ContactsRouter = Router();
 const {
   OK,
   NOT_FOUND,
@@ -19,13 +18,32 @@ const {
   NOT_IMPLEMENTED,
 } = StatusCodes;
 
-/******************************************************************************
- *                      Section - "POST /section"
- ******************************************************************************/
-SectionRouter.route('/')
+ContactsRouter.route('/')
+  /******************************************************************************
+   *                      Contacts - "GET /contacts"
+   ******************************************************************************/
+  .get((req: Request, res: Response, next: NextFunction) => {
+    Contacts.find({})
+      .then((contacts) => {
+        //Contacts not found
+        if (!contacts) {
+          const err = new ErrorWithStatus(NOT_FOUND, notFound);
+          return next(err);
+        }
+        // Send contacts to a client
+        return res.status(OK).json({ contacts });
+      })
+      .catch((error) => {
+        const err = new ErrorWithStatus(INTERNAL_SERVER_ERROR, error.message);
+        return next(err);
+      });
+  })
+  /******************************************************************************
+   *                      Contacts - "POST /contacts"
+   ******************************************************************************/
   .post(adminMW, (req: Request, res: Response, next: NextFunction) => {
-    //Create new section
-    Section.create(req.body)
+    //Create contact
+    Contacts.create(req.body)
       .then(() => {
         //Send status OK if created
         return res.status(CREATED).end();
@@ -36,11 +54,11 @@ SectionRouter.route('/')
       });
   })
   /******************************************************************************
-   *                      Section - "PUT /section"
+   *                      Contacts - "PUT /contacts"
    ******************************************************************************/
   .put(adminMW, (req: Request, res: Response, next: NextFunction) => {
     //Find and update section
-    Section.findByIdAndUpdate(req.body.sectionId, {
+    Contacts.findByIdAndUpdate(req.body.sectionId, {
       $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
     })
       .then(() => {
@@ -52,4 +70,4 @@ SectionRouter.route('/')
       });
   });
 
-export default SectionRouter;
+export default ContactsRouter;
