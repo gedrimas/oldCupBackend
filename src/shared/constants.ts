@@ -1,5 +1,4 @@
 import { Request } from 'express';
-import { IUser } from '@entities/User';
 
 // Strings
 export const paramMissingError =
@@ -27,12 +26,3 @@ export const cookieProps = Object.freeze({
     secure: process.env.SECURE_COOKIE === 'true',
   },
 });
-
-// IRequest object for express routes
-export interface IRequest extends Request {
-  body: {
-    user: IUser;
-    name: string;
-    password: string;
-  };
-}

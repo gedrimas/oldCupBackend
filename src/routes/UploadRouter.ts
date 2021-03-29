@@ -1,10 +1,4 @@
-import express, {
-  Response,
-  NextFunction,
-  Router,
-  Express,
-  Request,
-} from 'express';
+import express, { Response, NextFunction, Request } from 'express';
 import multer, { FileFilterCallback } from 'multer';
 import { adminMW } from './middleware';
 import Advert from '../models/advert';

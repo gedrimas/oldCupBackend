@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import StatusCodes from 'http-status-codes';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
+import cors from 'cors';
 
 import BaseRouter from './routes';
 import { ErrorWithStatus } from '@shared/functions';
@@ -18,7 +19,7 @@ const { BAD_REQUEST } = StatusCodes;
 /************************************************************************************
  *                              Set basic express settings
  ***********************************************************************************/
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(cookieProps.secret));
@@ -34,8 +35,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Add APIs
-//app.use('/api', BaseRouter);
-
 app.use('/', BaseRouter);
 
 // Print API errors

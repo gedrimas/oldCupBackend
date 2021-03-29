@@ -21,6 +21,7 @@ export class ErrorWithStatus {
   }
 }
 
+//returns object for saving in DB according provided params
 export const updateIfNewValueProvided = (ru: string, ee: string) => {
   if (!(ru || ee)) {
     return undefined;
@@ -34,28 +35,3 @@ export const updateIfNewValueProvided = (ru: string, ee: string) => {
   if (ru) return { ru };
   if (ee) return { ee };
 };
-
-interface ImageMetaData {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  filename: string;
-  path: string;
-  size: number;
-}
-
-// export function idImageMetaData(
-//   img: { [fieldname: string]: File[] } | File[]
-// ): img is File[] {
-//   return (img as File[])[0].path !== undefined;
-// }
-
-// export function getImagePaths(
-//   images: ImageMetaData[] | { [fieldname: string]: File[] } | File[]
-// ) {
-//   if (idImageMetaData(images)) {
-//     return images.map((img) => img.path);
-//   }
-// }

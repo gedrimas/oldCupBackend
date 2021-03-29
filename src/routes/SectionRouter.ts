@@ -1,23 +1,13 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import StatusCodes from 'http-status-codes';
-import {
-  notFound,
-  sectionAddingError,
-  sectionUpdatingError,
-} from '@shared/constants';
+import { sectionAddingError, sectionUpdatingError } from '@shared/constants';
 import Section from '../models/section';
 import { adminMW } from './middleware';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
 
 const SectionRouter = Router();
 
-const {
-  OK,
-  NOT_FOUND,
-  INTERNAL_SERVER_ERROR,
-  CREATED,
-  NOT_IMPLEMENTED,
-} = StatusCodes;
+const { OK, CREATED, NOT_IMPLEMENTED } = StatusCodes;
 
 /******************************************************************************
  *                      Section - "POST /section"
@@ -31,6 +21,7 @@ SectionRouter.route('/')
         return res.status(CREATED).end();
       })
       .catch(() => {
+        //Return Error if section isn't created
         const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionAddingError);
         return next(err);
       });
@@ -47,6 +38,7 @@ SectionRouter.route('/')
         return res.status(OK).end();
       })
       .catch(() => {
+        //Return Error if section wasn't updated
         const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
         return next(err);
       });

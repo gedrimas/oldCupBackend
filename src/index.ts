@@ -3,7 +3,7 @@ import app from '@server';
 import logger from '@shared/Logger';
 import mongoose from 'mongoose';
 
-const port = Number(process.env.PORT || 3000);
+const port = Number(process.env.PORT || 3001);
 
 // Connect to db
 mongoose

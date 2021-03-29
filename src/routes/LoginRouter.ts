@@ -6,7 +6,6 @@ import {
   loginFailedError,
   namePassMissingError,
   cookieProps,
-  IRequest,
 } from '@shared/constants';
 import Admin from '../models/admin';
 
@@ -18,9 +17,10 @@ const { BAD_REQUEST, OK, UNAUTHORIZED, INTERNAL_SERVER_ERROR } = StatusCodes;
  *                      Login User - "POST /login"
  ******************************************************************************/
 
-LoginRouter.post('/', (req: IRequest, res: Response, next: NextFunction) => {
+LoginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
   const { name, password } = req.body;
 
+  // Check if name and password provided
   if (!(name && password)) {
     const err = new ErrorWithStatus(BAD_REQUEST, namePassMissingError);
     return next(err);

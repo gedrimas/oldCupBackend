@@ -1,5 +1,6 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import StatusCodes from 'http-status-codes';
+
 import {
   notFound,
   sectionAddingError,
@@ -23,6 +24,7 @@ ContactsRouter.route('/')
    *                      Contacts - "GET /contacts"
    ******************************************************************************/
   .get((req: Request, res: Response, next: NextFunction) => {
+    //Find contacts
     Contacts.find({})
       .then((contacts) => {
         //Contacts not found
@@ -33,6 +35,7 @@ ContactsRouter.route('/')
         // Send contacts to a client
         return res.status(OK).json({ contacts });
       })
+      //Return Error
       .catch((error) => {
         const err = new ErrorWithStatus(INTERNAL_SERVER_ERROR, error.message);
         return next(err);
@@ -48,6 +51,7 @@ ContactsRouter.route('/')
         //Send status OK if created
         return res.status(CREATED).end();
       })
+      //Return Error with appropriate messege
       .catch(() => {
         const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionAddingError);
         return next(err);
@@ -61,9 +65,11 @@ ContactsRouter.route('/')
     Contacts.findByIdAndUpdate(req.body.sectionId, {
       $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
     })
+      //Send status OK if updated
       .then(() => {
         return res.status(OK).end();
       })
+      //Return Error with appropriate messege
       .catch(() => {
         const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
         return next(err);
