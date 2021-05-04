@@ -1,18 +1,18 @@
 import { model, Schema, Model, Document } from 'mongoose';
 
 export interface ContactsSchema extends Document {
-  ruInfo: string;
-  eeInfo: string;
+  ru: string;
+  ee: string;
   email: string;
   phone: string;
 }
 
 const ContactsSchema: Schema = new Schema({
-  ruInfo: {
+  ru: {
     type: String,
     required: true,
   },
-  eeInfo: {
+  ee: {
     type: String,
     required: true,
   },

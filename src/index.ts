@@ -7,7 +7,7 @@ const port = Number(process.env.PORT || 3001);
 
 // Connect to db
 mongoose
-  .connect('mongodb://localhost:27017/oldCupDB', {
+  .connect('mongodb://localhost:27017/oldcupdb', {
     useNewUrlParser: true,
   })
   .then(() => {

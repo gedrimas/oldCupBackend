@@ -29,7 +29,7 @@ LoginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
   Admin.findOne({ name })
     .then((admin) => {
       // Check admin in DB
-      if (!admin) {
+      if (!admin) {        
         const err = new ErrorWithStatus(UNAUTHORIZED, loginFailedError);
         return next(err);
       }
@@ -67,3 +67,4 @@ LoginRouter.get('/logout', (req: Request, res: Response) => {
 });
 
 export default LoginRouter;
+

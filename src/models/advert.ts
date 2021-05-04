@@ -1,71 +1,37 @@
 import mongoose, { model, Schema, Model, Document } from 'mongoose';
 
-interface ImgSchema extends Document {
-  fieldname: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  destination: string;
-  filename: string;
-  path: string;
-  size: string;
-}
-
-const ImageSchema: Schema = new Schema({
-  fieldname: {
-    type: String,
-  },
-  originalname: {
-    type: String,
-  },
-  encoding: {
-    type: String,
-  },
-  mimetype: {
-    type: String,
-  },
-  destination: {
-    type: String,
-  },
-  filename: {
-    type: String,
-  },
-  path: {
-    type: String,
-  },
-  size: {
-    type: Number,
-  },
-});
 
 interface AdvSchema extends Document {
   sectionId: string;
+  mainPhoto: string;
+  allPhotos: string[];
   price: string;
-  descriptionRu: string;
-  descriptionEe: string;
-  mainImage: string;
-  images: ImgSchema[];
+  ru: string;
+  ee: string;
 }
 const AdvertSchema: Schema = new Schema({
   sectionId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Section',
   },
-  price: {
+  mainPhoto: {
     type: String,
     requierd: true,
   },
-  descriptionRu: {
-    type: String,
+  allPhotos: {
+    type: Array,
   },
-  descriptionEe: {
+  price: {
     type: String,
+    required: true
   },
-  images: {
-    type: [ImageSchema],
-  },
-  mainImage: {
+  ru: {
     type: String,
+    required: true
+  },
+  ee: {
+    type: String,
+    required: true
   },
 });
 
