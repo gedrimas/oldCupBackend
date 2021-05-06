@@ -7,8 +7,9 @@ import {
 } from '@shared/constants';
 import Advert from '../models/advert';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
+import { LOADIPHLPAPI } from 'node:dns';
 
-const AdvertRouter = Router();
+const AdvertsRouter = Router();
 const {
   OK,
   NOT_FOUND,
@@ -17,19 +18,19 @@ const {
   NOT_IMPLEMENTED,
 } = StatusCodes;
 
-AdvertRouter.route('/')
+AdvertsRouter.route('/:sectionId')
   /******************************************************************************
-   *                      Section - "GET /section"
+   *     adverts - "GET /adverts" - get all adverts for a particular section
    ******************************************************************************/
   .get((req: Request, res: Response, next: NextFunction) => {
-    Advert.find({ sectionId: req.body.sectionId })
-      .then((allAdverts) => {
-        //Sections not found
+    Advert.find({ sectionId: req.params.sectionId })
+      .then((allAdverts) => {        
+        //Adverts not found
         if (!allAdverts) {
           const err = new ErrorWithStatus(NOT_FOUND, notFound);
           return next(err);
         }
-        // Send sections to a client
+        // Send all adverts related to a chosen section
         return res.status(OK).json({ allAdverts });
       })
       .catch((error) => {
@@ -45,4 +46,4 @@ AdvertRouter.route('/')
  *                      Section - "PUT /section"
  ******************************************************************************/
 
-export default AdvertRouter;
+export default AdvertsRouter;

@@ -11,8 +11,8 @@ interface AdvSchema extends Document {
 }
 const AdvertSchema: Schema = new Schema({
   sectionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Section',
+    type: String,
+    required: true
   },
   mainPhoto: {
     type: String,
