@@ -62,16 +62,28 @@ ContactsRouter.route('/')
    ******************************************************************************/
   .put(adminMW, (req: Request, res: Response, next: NextFunction) => {
     //Find and update section
-    Contacts.findByIdAndUpdate(req.body.sectionId, {
-      $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
-    })
+    console.log('req', req);
+    
+    // Contacts.findByIdAndUpdate(req.body.sectionId, {
+    //   $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
+    // })
+
+    Contacts.updateOne({_id: req.body.ru}, 
+      {
+      ru: req.body.ru,
+      ee: req.body.ee, 
+      phone: req.body.phone, 
+      email: req.body.email, 
+
+      }
+    )
       //Send status OK if updated
       .then(() => {
         return res.status(OK).end();
       })
       //Return Error with appropriate messege
       .catch(() => {
-        const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
+        const err = new ErrorWithStatus(NOT_IMPLEMENTED, 'sectionUpdatingError');
         return next(err);
       });
   });
