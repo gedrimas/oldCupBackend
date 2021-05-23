@@ -68,13 +68,12 @@ ContactsRouter.route('/')
     //   $set: updateIfNewValueProvided(req.body.ru, req.body.ee),
     // })
 
-    Contacts.updateOne({_id: req.body.ru}, 
+    Contacts.updateOne({_id: req.body._id}, 
       {
       ru: req.body.ru,
       ee: req.body.ee, 
       phone: req.body.phone, 
       email: req.body.email, 
-
       }
     )
       //Send status OK if updated
@@ -82,8 +81,8 @@ ContactsRouter.route('/')
         return res.status(OK).end();
       })
       //Return Error with appropriate messege
-      .catch(() => {
-        const err = new ErrorWithStatus(NOT_IMPLEMENTED, 'sectionUpdatingError');
+      .catch((e) => {        
+        const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
         return next(err);
       });
   });

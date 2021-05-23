@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.48400c4a.chunk.css",
+    "main.js": "/static/js/main.0b4c4bc4.chunk.js",
+    "main.js.map": "/static/js/main.0b4c4bc4.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.ead6ca7f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.ead6ca7f.js.map",
+    "static/js/2.aa3f17e3.chunk.js": "/static/js/2.aa3f17e3.chunk.js",
+    "static/js/2.aa3f17e3.chunk.js.map": "/static/js/2.aa3f17e3.chunk.js.map",
+    "static/js/3.ed2df8c9.chunk.js": "/static/js/3.ed2df8c9.chunk.js",
+    "static/js/3.ed2df8c9.chunk.js.map": "/static/js/3.ed2df8c9.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.48400c4a.chunk.css.map": "/static/css/main.48400c4a.chunk.css.map",
+    "static/js/2.aa3f17e3.chunk.js.LICENSE.txt": "/static/js/2.aa3f17e3.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/static/media/Pattern-Randomized.4487527c.svg",
+    "static/media/ee.dafcc141.svg": "/static/media/ee.dafcc141.svg",
+    "static/media/ru.c89ed68a.svg": "/static/media/ru.c89ed68a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ead6ca7f.js",
+    "static/js/2.aa3f17e3.chunk.js",
+    "static/css/main.48400c4a.chunk.css",
+    "static/js/main.0b4c4bc4.chunk.js"
+  ]
+}
