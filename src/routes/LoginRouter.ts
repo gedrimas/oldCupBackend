@@ -56,15 +56,5 @@ LoginRouter.post('/', (req: Request, res: Response, next: NextFunction) => {
     });
 });
 
-/******************************************************************************
- *                      Logout - "GET /logout"
- ******************************************************************************/
-
-LoginRouter.get('/logout', (req: Request, res: Response) => {
-  const { key, options } = cookieProps;
-  res.clearCookie(key, options);
-  return res.status(OK).end();
-});
-
 export default LoginRouter;
 

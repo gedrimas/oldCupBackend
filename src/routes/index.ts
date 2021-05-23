@@ -5,6 +5,7 @@ import LoginRouter from './LoginRouter';
 import UploadRouter from './UploadRouter';
 import AdvertsRouter from './AdvertsRouter';
 import ContactsRouter from './ContactsRouter';
+import LogOutRouter from './LogoutRouter'
 // Init router and path
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use('/login', LoginRouter);
 router.use('/upload', UploadRouter);
 router.use('/adverts', AdvertsRouter);
 router.use('/contacts', ContactsRouter);
+router.use('/logout', LogOutRouter);
 
 // Export the base-router
 export default router;
