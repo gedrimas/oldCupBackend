@@ -9,6 +9,8 @@ export const dbError = 'Data base Error';
 export const notFound = 'Not found';
 export const sectionAddingError = 'Section was not added';
 export const sectionUpdatingError = 'Section was not updated';
+export const sectionAndAdvertsDeletionError = 'Section and adverts was not deletrd';
+
 
 // Numbers
 export const pwdSaltRounds = 12;

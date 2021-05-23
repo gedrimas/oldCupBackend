@@ -1,7 +1,12 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import StatusCodes from 'http-status-codes';
-import { sectionAddingError, sectionUpdatingError } from '@shared/constants';
+import { 
+  sectionAddingError, 
+  sectionUpdatingError, 
+  sectionAndAdvertsDeletionError 
+} from '@shared/constants';
 import Section from '../models/section';
+import Advert from '../models/advert';
 import { adminMW } from './middleware';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
 
@@ -42,6 +47,27 @@ SectionRouter.route('/')
         const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionUpdatingError);
         return next(err);
       });
-  });
+  })
+    /******************************************************************************
+   *       Section - "Delete sectins and all adverts in that sectin/section"
+   ******************************************************************************/
+     .delete(adminMW, (req: Request, res: Response, next: NextFunction) => {
+      //Find and update section
+      Advert.deleteMany({
+        sectionId: req.body.sectionId
+      })
+        .then(() => {
+          Section.deleteOne({_id: req.body.sectionId})
+            .then(() => {
+              return res.status(OK).end();
+            })
+        })
+        .catch(() => {
+          //Return Error if section wasn't updated
+          const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionAndAdvertsDeletionError);
+          return next(err);
+        });
+    })
+
 
 export default SectionRouter;

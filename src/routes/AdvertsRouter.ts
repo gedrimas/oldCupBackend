@@ -7,15 +7,12 @@ import {
 } from '@shared/constants';
 import Advert from '../models/advert';
 import { ErrorWithStatus, updateIfNewValueProvided } from '@shared/functions';
-import { LOADIPHLPAPI } from 'node:dns';
 
 const AdvertsRouter = Router();
 const {
   OK,
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
-  CREATED,
-  NOT_IMPLEMENTED,
 } = StatusCodes;
 
 AdvertsRouter.route('/:sectionId')
