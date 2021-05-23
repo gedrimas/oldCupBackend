@@ -52,18 +52,19 @@ SectionRouter.route('/')
    *       Section - "Delete sectins and all adverts in that sectin/section"
    ******************************************************************************/
      .delete(adminMW, (req: Request, res: Response, next: NextFunction) => {
-      //Find and update section
+      //Find and delete related adverts
       Advert.deleteMany({
         sectionId: req.body.sectionId
       })
         .then(() => {
+          //Find and delete section
           Section.deleteOne({_id: req.body.sectionId})
             .then(() => {
               return res.status(OK).end();
             })
         })
         .catch(() => {
-          //Return Error if section wasn't updated
+          //Return Error if section and adverts wasn't deleted 
           const err = new ErrorWithStatus(NOT_IMPLEMENTED, sectionAndAdvertsDeletionError);
           return next(err);
         });
